@@ -1,0 +1,8 @@
+[project]
+name = "vibecoding-slot-machine"
+version = "0.1.0"
+description = "Measuring the reward structure of AI coding agents and testing agency-preserving interventions"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

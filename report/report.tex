@@ -1,0 +1,351 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage[letterpaper,margin=0.75in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+\renewcommand{\ttdefault}{lmtt}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{natbib}
+\setcitestyle{numbers,square}
+\setlength{\bibsep}{1pt}
+\setlength{\columnsep}{0.25in}
+\makeatletter
+\renewcommand\section{\@startsection{section}{1}{\z@}{-1.5ex plus -.4ex minus -.2ex}{0.7ex plus .2ex}{\normalfont\large\bfseries\raggedright}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}{-1.1ex plus -.3ex minus -.2ex}{0.4ex plus .1ex}{\normalfont\normalsize\bfseries\raggedright}}
+\renewcommand{\@makecaption}[2]{\vskip\abovecaptionskip{\small\textbf{#1.} #2\par}\vskip\belowcaptionskip}
+\makeatother
+\setlength{\parskip}{0pt}
+\setlength{\textfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\floatsep}{6pt}
+\setlength{\dbltextfloatsep}{8pt plus 2pt minus 2pt}
+\setlength{\dblfloatsep}{6pt}
+\AtBeginDocument{\setlength{\abovedisplayskip}{3pt plus 1pt}\setlength{\belowdisplayskip}{3pt plus 1pt}%
+\setlength{\abovedisplayshortskip}{1pt}\setlength{\belowdisplayshortskip}{2pt plus 1pt}}
+\setlength{\abovecaptionskip}{2pt}
+\newcommand{\code}[1]{\texttt{\small #1}}
+\input{numbers.tex}
+
+\title{\vspace{-1.6em}\textbf{Is Vibecoding a Slot Machine?}\\[2pt]
+\large Measuring the Reward Structure of AI Coding Agents and Testing ``Nicotine Patches''}
+\author{Brian Lee\\ \small COMPSCI 2520R: Advanced Topics in Programming Languages}
+\date{\vspace{-1.2em}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+Vibecoding turns programming into repeated, nearly free requests with uncertain payoffs, the reinforcement
+structure behind compulsive gambling. We measure that structure on a 30-task Python benchmark with
+\NTests{} hidden tests, drawing \VibeN{} generations from \Model{} with the terse requests a vibecoder
+writes. \VibePassRate{} pass, and \NmGivenFail{} of failures are near-misses. They are systematic: ten pulls
+of a task show only \DistinctBehaviours{} distinct test behaviours, and the same tasks written as full
+specifications pass \SpecN/\SpecN. Blind re-rolls decay (\BlindHazTwo{} on the second pull, \BlindHazFive{} on
+the fifth), while pasting the test failure back succeeds \EpHazTwo{} of the time because the failure report
+carries the missing intent. With such complete feedback the baseline reaches \BasePass, and four
+``nicotine patches'' (a retry budget with handoff, hidden best-of-5, a test-gated reveal with code-free
+diagnoses, and spec-first typed holes) can only trade success for agency. We therefore re-run the study
+with realistic feedback: the programmer owns only \NVisible{} tests per task and privately knows what they
+meant. The vibecoder baseline then passes the full suite in only \RVibePass{} of sessions, and \RVibeSilent{}
+ship code that passes the programmer's tests and is wrong. Patches triggered by failures inherit this blind
+spot. Typed holes, which ask the programmer for decisions before any code exists, reach \RFourPass{}; when
+the programmer may also turn a decision buried in boilerplate into a new hole they reach \RFourPlusPass{}
+(\RFourPlusDelta{} points, 95\% CI \RFourPlusDeltaLo{} to \RFourPlusDeltaHi), most of what an attentive programmer
+gains.
+\end{abstract}
+
+\section{Introduction}
+Karpathy's description of ``vibe coding'' \citep{karpathy2025vibe} is a loop: describe what you want,
+accept what comes back, and when it fails, regenerate or paste the error and ask again. Each iteration
+costs one keystroke and pays off unpredictably. Behavioural psychology has a name for this arrangement.
+Variable-ratio schedules, in which reinforcement arrives after an unpredictable number of responses,
+produce high and persistent response rates that resist extinction \citep{ferster1957schedules}.
+Near-misses, losses that look almost like wins, raise the motivation to keep playing
+\citep{reid1986nearmiss} and recruit reward circuitry \citep{clark2009nearmiss}; modern machines go
+further and dress up net losses as wins \citep{dixon2010ldw}. Sch\"ull describes players who stop caring about winning and play to stay in ``the zone''
+\citep{schull2012addiction}.
+
+The analogy to coding agents is easy to make and rarely measured. We ask whether the outcome of a
+vibecoding request is unpredictable and why, whether failures are near-misses, and what one more retry buys.
+We then take up our instructor's question: which interventions keep programmers engaged instead of yielding
+control to the machine? Programmers using assistants alternate between accelerating and exploring
+\citep{barke2023grounded}, struggle to repair generated code \citep{vaithilingam2022expectation}, spend much
+of their time verifying \citep{mozannar2024reading}, and as novices can be misled by fluent output
+\citep{prather2024widening}. The ironies of automation \citep{bainbridge1983ironies} and the complacency
+literature \citep{parasuraman2010complacency} predict the endpoint: an operator who only monitors loses the
+skill needed to intervene.
+
+This paper makes five contributions: (1) a 30-task benchmark whose hidden suites score partial correctness, with
+every task written twice, as a terse vibe request and as a full specification; (2) measurements of
+outcome entropy, near-miss rates and marginal retry curves; (3) four ``nicotine patches'' evaluated on
+the same model draws with complete test feedback; (4) a realistic-feedback evaluation in which the
+programmer sees only their own few tests and privately knows what they meant; it shows that the
+baseline's perfect success is an artifact of complete tests; and (5) an open harness and a replayable demo.
+
+\section{Experimental Methodology}
+\begin{figure*}[t]
+\centering\includegraphics[width=0.92\linewidth]{../figures/fig1_variance_and_nearmiss.pdf}
+\caption{Phase 1, vibe prompts, $N{=}10$ pulls per task. (a) Outcome mix per task (bars) and binary
+outcome entropy (dots). (b) Fraction of tests passed by the \NFailedPulls{} failed pulls.}
+\label{fig:baseline}
+\end{figure*}
+\subsection{Benchmark}
+The suite has 10 algorithmic tasks adapted from HumanEval \citep{chen2021codex}
+(e.g.\ \code{fix\_spaces}, \code{minPath}), 10 practical tasks in the style of MBPP
+\citep{austin2021mbpp} (e.g.\ \code{parse\_kv}, \code{column\_stats}), and 10 original multi-function
+or stateful tasks (an LRU cache with TTL, an integer interpreter with C-style division, a vending
+machine with limited change, parser combinators, a dependency resolver that reports cycles, an undo/redo
+editor, and others). Each task has a hidden reference solution and 8--10 tests, each pinning down one
+rule. We verify that every reference passes its suite and that an empty module fails every test. Each
+task has two prompts. The \emph{spec} prompt states every rule (\SpecWords{} words on average). The
+\emph{vibe} prompt (\VibeWords{} words) names the API and the core intent and leaves edge cases
+implicit, as in ``replace spaces with underscores, but if there are lots of consecutive spaces, replace
+the whole run with a single \texttt{-}''; the hidden tests encode what the requester meant by ``lots'' (more
+than two). The vibe condition is our primary setting.
+
+\subsection{Harness}
+Generations come from \Model{} via the Claude Code CLI (\code{claude -p}, version
+\CliVersion) with no tools, settings or session persistence, a fixed system prompt asking for one code
+block, and default sampling. Code runs in a fresh \code{python -I} subprocess with a scrubbed environment,
+a 2\,s per-test timer and a 10\,s suite kill. Every call is logged with prompt, response, tokens, cost and
+latency, and the log doubles as a cache keyed by (prompt, sample index), so conditions that request the
+same draw receive the same sample (common random numbers).
+The whole study used \NCalls{} calls (\TotalTokensM{}M tokens, \$\TotalCost{} at list prices).
+
+\subsection{Retry Regimes}
+In Regime A (\emph{blind pull}) each task is sampled $N{=}10$ times with an identical
+prompt, as if the user pressed ``regenerate''. In Regime B (\emph{error-paste}) each blind pull seeds a
+chain: if it fails, the pytest-style failure report (failing test, its assertion, got/expected values)
+is pasted back with ``Please fix it.'' for up to five turns. All statistics are computed from the
+logged attempts.
+
+\subsection{Definitions}
+Let attempt $a$ pass $s_a$ of $T$ tests. It is a \emph{pass} if $s_a{=}T$; a
+\emph{near-miss} if the code loads and $s_a/T \ge 0.8$ or exactly one test fails; and a \emph{fail}
+otherwise (including syntax errors and crashes on import). For task $i$ with empirical pass rate
+$\hat p_i$ over $N$ pulls, outcome variance is $\hat p_i(1-\hat p_i)$ and outcome entropy is
+\[H_i = -\hat p_i\log_2\hat p_i-(1-\hat p_i)\log_2(1-\hat p_i)\ \text{bits}.\] The near-miss rate is
+$P(\text{near-miss}\mid\neg\text{pass})$. The marginal retry curve is the hazard
+$h(t)=P(\text{pass at } t \mid \text{attempts } 1..t{-}1 \text{ failed})$. Blind pulls are i.i.d.\ within
+a task, so we pool the plug-in estimate
+\[h_A(t)=\frac{\sum_i(1-\hat p_i)^{t-1}\hat p_i}{\sum_i(1-\hat p_i)^{t-1}};\]
+its decay reflects
+selection (the sessions still failing are on harder tasks). For error-paste chains, $h_B(t)$ is the
+empirical fraction of chains reaching turn $t$ that pass there. Confidence intervals resample tasks
+(2{,}000 cluster-bootstrap replicates).
+
+\subsection{Realistic Feedback (Phase 3)}
+In Phases 1--2 every failure report comes from the complete
+hidden suite and includes the expected values, the best case for pasting errors. Real programmers rarely
+own tests that encode everything they meant. Phase 3 splits each suite: the programmer owns the first
+\NVisible{} tests of each task (a rule fixed before any run; tests were ordered when the benchmark was
+written), and all feedback in every condition comes from those. The \NHeldOut{} held-out tests only score
+the final program. A session achieves \emph{intent pass} if its final program passes the full suite; it is a
+\emph{silent failure} if the program passes every visible test but not the full suite, a loss disguised as a
+win. The simulated programmer now privately holds the full specification but typed only the vibe prompt. A
+\emph{vibecoder} pastes whatever their tests report and never volunteers detail; an \emph{attentive}
+programmer reads each attempt and replies with one sentence of at most 40 words, an upper bound on what
+engagement buys. Differences from the vibecoder are paired by task and bootstrapped over tasks.
+
+\section{Baseline Results: Is Vibecoding a Slot Machine?}
+\subsection{Payouts Are Intermittent and Failures Are Close}
+Of \VibeN{} blind pulls, \VibePass{} passed
+(\VibePassRate, 95\% CI \VibePassLo--\VibePassHi), \VibeNM{} were near-misses and \VibeFail{} failed
+outright: \NmGivenFail{} of failures were near-misses (bootstrap CI \NmGivenFailLo--\NmGivenFailHi).
+The median failure passed \MedianFracFailures{} of its tests (Fig.~\ref{fig:baseline}b). The payout
+schedule is concentrated: \NAlwaysPass{} tasks passed every pull, \NNeverPass{} never passed, and
+\NStochastic{} were genuinely stochastic, with mean entropy \StochEntropy{} bits among those (\MeanEntropy{}
+bits over all 30). The original stateful tasks had the most stochastic tasks (\StochOriginal{} of 10).
+
+\subsection{The Reels Spin but Land on the Same Symbols}
+Independent pulls of the same prompt share only
+\CodeSimilarity{} of their text on average (difflib ratio), so each regeneration looks new. Their
+behaviour barely changes: ten pulls produced \DistinctBehaviours{} distinct pass/fail vectors per task,
+and the most common failure signature accounts for \ModalSignatureShare{} of failed pulls (\code{fix\_spaces}
+turned a double space into a dash in 8 of 10). These are consistent readings of an underspecified request,
+which is why re-rolling rarely fixes them. The same tasks written as full specifications passed
+\SpecN/\SpecN{} pulls (entropy \SpecEntropy): the randomness is the gap between what the user typed and what
+their tests require.
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.9\linewidth]{../figures/fig2_retry_curves.pdf}
+\caption{(a) Marginal retry curves with 95\% task-bootstrap bands; $n$ is the number of error-paste
+chains reaching each turn. (b) Fraction of sessions passed within a budget of $t$ attempts.}
+\label{fig:retry}
+\end{figure*}
+
+\subsection{Blind Retries Decay; Pasted Errors Converge}
+The blind hazard falls from \BlindHazOne{} to
+\BlindHazTwo{} on the second pull (CI \BlindHazTwoLo--\BlindHazTwoHi) and \BlindHazFive{} on the fifth;
+five pulls lift cumulative success only from \BlindCumOne{} to \BlindCumFive{} (Fig.~\ref{fig:retry}).
+Error-paste behaves differently: \EpHazTwo{} of the \EpReachedTwo{} chains that failed once passed on
+the next turn, and all \EpReachedThree{} remaining chains passed on the third. Chains never regressed
+(\RegressionRate{} of steps lost a test), consecutive attempts shared \ConsecSimilarity{} of their
+text (edits, not re-rolls), and a near-miss was followed by a pass \PassAfterNM{} of the time versus
+\PassAfterFail{} after a fail. The loop converges because the failure report contains the expected
+values, which carry the intent the vibe prompt left out. All of that information comes from the test
+suite; the programmer only carried it from the terminal to the chat. Our pre-registered budget rule
+(stop where the next-attempt hazard falls below half that of the first retry, else the last observed turn)
+gives $k^*{=}\KStar$ for every patch; on error-paste chains this is the default, since none reached a fourth turn.
+
+\section{Designing and Evaluating ``Nicotine Patches''}
+Each patch is a session protocol that controls what the programmer is shown and which decisions they
+own. In Phase 2 all conditions observe the same vibe prompt and complete test feedback. Where a protocol
+hands work to the programmer, a separately prompted model call stands in for them; its calls are excluded
+from agent cost and its lines count as human-written. This proxy tests whether a protocol \emph{can} be
+completed within its boundaries, not how people behave.
+
+\subsection{Four Patches}
+The first patch, P1 (\emph{retry budget with decomposition handoff}), runs error-paste for at most $k$ turns. On exhaustion
+the agent must hand back a skeleton in which the decisions implicated by the failures live in 1--4
+\emph{typed holes} (\code{hole\_*} functions with type hints, a docstring contract and body
+\code{raise NotImplementedError}), plus 4--8 executable invariants over the public API. The programmer
+fills the holes; a splice step keeps only their \code{hole\_*} code, enforcing the ownership boundary.
+
+P2 (\emph{hidden best-of-5 with a behavioural diff}) tests five candidates privately, as in
+sample-and-filter generation \citep{li2022alphacode}; only the best is shown, with a summary of which
+tests the hidden candidates disagreed on. P3 (\emph{test-gated reveal with diagnosis}) shows code
+only once it passes. A failing attempt is replaced by a diagnosis of at most two sentences without code,
+phrased as a clarification the programmer adds to their request, close in spirit to test-driven intent
+formalisation \citep{lahiri2022ticoder}.
+
+In P4 (\emph{spec-first typed holes}), before any code exists the agent writes the API, the boilerplate and invariants, and leaves the core decisions as holes, following
+the PL tradition of holes as partially specified program fragments \citep{solarlezama2008sketching,
+omar2017hazelnut,omar2019livelit} and of properties as specifications \citep{claessen2000quickcheck};
+retries iterate on the holes, never on the whole program. Each patch gets up to $k$ rounds.
+
+\subsection{Agency Metrics}
+A \emph{visible lottery outcome} is a complete model-written program shown together
+with its score; under P3 the visible signal is ``withheld'' or a revealed pass. \emph{Visible entropy}
+is the entropy (bits) of the visible signals per task, averaged over tasks. \emph{Passive retries}
+are regenerations that add no human information. \emph{Decision points} are holes to fill or
+clarifications to accept. \emph{Human lines} is the share of the final program written inside
+human-owned holes. \emph{Spec soundness} is the share of model-written invariants that hold on the
+hidden reference.
+
+\begin{table*}[t]
+\centering\small\setlength{\tabcolsep}{3.6pt}
+\caption{Phase 2, complete feedback; 10 sessions per task (P4: 5), $k{=}\KStar$ unless noted. H: visible
+entropy (bits); NM: visible near-misses; Ret.: passive retries; Dec.: decision points; Hum.: human-written
+share of final lines; Sound: invariants holding on the reference; agent calls, kTokens and latency (s).
+All per session.}
+\label{tab:patches}
+\input{table_patches.tex}
+\end{table*}
+
+\begin{figure*}[t]
+\centering\includegraphics[width=0.9\linewidth]{../figures/fig3_patch_tradeoffs.pdf}
+\caption{(a) Complete feedback: final pass rate against decision points per session (dashed: Pareto front;
+marker area: visible near-misses). (b) Realistic feedback: how sessions end, with 95\% task-bootstrap CIs on
+intent pass and decision points per session at right.}
+\label{fig:tradeoffs}
+\end{figure*}
+
+\subsection{Results with Complete Feedback}
+The baseline reaches \BasePass{} but shows \BaseNM{} near-misses and
+\BaseRetries{} passive retries per session, and the programmer decides nothing (Table~\ref{tab:patches}).
+P1 at $k{=}\KStar$ never triggers, because no chain needed a fourth attempt; a budget pays off only
+when it binds. At $k{=}1$ the handoff fired \POneKOneHandoffs{} times and \POneKOneRescue{} of handoffs ended in
+passing code, for \POneKOnePass{} overall with \POneKOneDecisions{} decisions per session. P2 cuts
+visible near-misses by \PTwoNMRed{} at \PTwoTokX$\times$ the tokens, and the programmer still decides nothing.
+P3 shows no near-misses, passes \PThreePass{} at \PThreeTokX$\times$ the tokens, and \PThreeCodeFree{} of
+its \PThreeNHints{} diagnoses passed an automatic code detector (the rest quote example inputs, not
+implementations). P4 also shows no lottery outcomes and gives the programmer \PFourDecisions{} decisions
+and \PFourHumanFrac{} of final lines; \PFourSoundness{} of its \PFourInvTotal{} invariants hold on the reference.
+It passes only \PFourPass{} (\PFourPassOriginal{} on stateful tasks): \PFourSingleFail{} of its \PFourFailures{}
+failures end one test short because the skeleton fixed the deciding rule in boilerplate, e.g.\ whether inserted
+coins can be returned as change. On the \NContested{} contested tasks the baseline still passes
+\BaseContestedPass{} but shows \BaseContestedNM{} near-misses per session. No patch can beat it on success here,
+because the failure report already hands the model the intent. Phase~3 removes that advantage.
+
+\section{Realistic Feedback: Does the Baseline Still Win?}
+\begin{table*}[t]
+\centering\small\setlength{\tabcolsep}{3.4pt}
+\caption{Phase 3, realistic feedback (\NVisible{} visible tests per task). $\Delta$: points vs.\ the vibecoder,
+paired by task. Silent: passes every visible test, not the full suite. Turns: programmer actions per session.}
+\label{tab:realistic}
+\input{table_realistic.tex}
+\end{table*}
+
+\subsection{The Baseline's Perfect Score Was an Artifact}
+With only their own tests, the
+vibecoder ends every session believing the code works (\RVibeVisPass{} pass their visible tests), but only
+\RVibePass{} pass the full suite (CI \RVibePassLo--\RVibePassHi). \RVibeSilent{} of sessions are silent
+failures, spread over \RSilentTasks{} tasks; on the \NContested{} contested tasks (those with a failed
+Phase~1 pull) the vibecoder is right \RVibeContestedPass{} of the time. The near-miss has not gone away; it
+has become invisible, which is the coding analogue of a loss disguised as a win \citep{dixon2010ldw}. A
+programmer who reads each attempt and states what they meant closes the gap: the attentive condition
+reaches \RAttPass{} (\RAttDelta{} points, CI \RAttDeltaLo{} to \RAttDeltaHi) with \RAttClar{} clarifications per
+session of \RAttClarWords{} words on average, and accepts the first attempt in \RAttAcceptFirst{} of sessions.
+
+\subsection{Failure-Triggered Patches Inherit the Blind Spot}
+P1, P2 and P3 act only when a test fails, and the
+programmer's tests flagged \RVisFailFirst{} of 300 first attempts: P1's handoff fired \ROneHandoffs{} times, P2
+ranks candidates by tests they all pass (at \RTwoTokX$\times$ the tokens), and P3 reveals code once the visible
+tests pass. Their intent-pass rates (\ROnePass, \RTwoPass, \RThreePass) match the vibecoder's.
+
+\subsection{Asking Before Generating Helps}
+P4 asks for the core
+decisions before any code exists, so the programmer's intent reaches the program whether or not a test fails.
+Plain P4 reaches \RFourPass{} (\RFourDelta{} points, CI \RFourDeltaLo{} to \RFourDeltaHi), a gain whose interval
+includes zero: as in Phase~2, skeletons sometimes fix the deciding rule outside every hole (\RFourSilent{}
+silent failures; \RFourPassOriginal{} on stateful tasks). With hole requests the programmer can name such a
+decision and the agent re-scaffolds once. \RFourPlusRequests{} of 150 sessions used a request and
+\RFourPlusRequestPass{} of those passed. P4 with hole requests reaches \RFourPlusPass{} (\RFourPlusDelta{} points,
+CI \RFourPlusDeltaLo{} to \RFourPlusDeltaHi; \RFourPlusVsFour{} over plain P4, CI \RFourPlusVsFourLo{} to
+\RFourPlusVsFourHi) and \RFourPlusPassOriginal{} on stateful tasks, with \RFourPlusDecisions{} decisions per
+session at \RFourPlusTokX$\times$ the vibecoder's tokens. It is the only patch whose gain excludes zero, and it
+recovers most of the attentive programmer's gain by asking for decisions rather than a review of every attempt.
+
+\subsection{Discussion}
+With realistic tests the slot machine gets worse: the programmer sees a win, ships it,
+and is sometimes wrong. Interventions that change how failures look (P1--P3) need a test to fail; those that
+ask for decisions up front do not. What the human is handed should be checkable against what they meant: a
+hole with a contract, an invariant that runs, a clarification. P3's diagnoses still help when tests fail, but
+some are fluent and wrong (two for \code{parser\_combinators} reversed the intended semantics).
+
+\section{Limitations and Future Work}
+We study one model (\Model) on 30 Python tasks, and hidden tests define intent. The tasks, tests, reference
+solutions and vibe prompts were written by an AI assistant for this study rather than collected from
+programmers, and the vibe prompts were written after a pilot showed that full specifications passed every
+pull; we report both conditions rather than tune either. The programmer is a model in Phases 2 and 3, so
+pass rates show that a protocol \emph{can} be completed within its boundaries, not that people will complete
+it. Phase 3 assumes a programmer who knows what they mean and says it only when asked; that is the definition
+of vibecoding, but it is an assumption, and the attentive programmer sometimes quotes a short snippet. The
+first-three-tests rule is one choice; others would move the numbers. Agency metrics are structural counts,
+not comprehension. A splice bug in our first P1/P4 run was fixed and those conditions re-run (first run
+archived under \code{results/phase2/superseded/}).
+
+The most important next step is a user study ($N{\approx}24$; baseline, P3, P4, P4 with hole requests) that
+measures silent failures, time to pass, comprehension and the urge to regenerate. Real vibe prompts collected
+from programmers, and a sweep that adds missing details to the prompt one at a time, would test how far the
+specification gap explains the variance.
+
+\section{Conclusion}
+Under underspecified requests, a coding agent pays out intermittently and its losses look
+like wins. With complete tests, pasting errors closes the gap without involving the programmer; with the
+programmer's own few tests, \RVibeSilent{} of sessions ship wrong code that looks finished. Interventions that
+only change how failures look cannot fix what the tests do not catch. Typed holes that ask the programmer for
+decisions before generation, and let them reopen decisions the scaffold made, recover most of the lost
+accuracy and give the programmer real work. The
+useful fix for the slot machine is not more pulls but a better specification, drawn from the person who has it.
+
+{\small
+\section*{Code and Data}
+The benchmark, harness, analysis scripts, every logged model call and the replayable demos are available at
+\\\url{https://github.com/leebr27/vibecoding-slotmachine-final}.
+
+\section*{AI Disclosure}
+The benchmark (tasks, tests, reference solutions, vibe prompts), the harness, the
+analysis and a draft of this report were produced with an AI coding assistant (Claude Code). Every number
+is generated from the logged runs by \code{analysis/report\_numbers.py}.
+}
+
+{\scriptsize
+\bibliographystyle{abbrvnat}
+\bibliography{refs}
+}
+\end{document}

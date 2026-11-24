@@ -1,0 +1,18 @@
+{
+  "k_star": 3,
+  "p1_k": 1,
+  "n_visible": 3,
+  "visible_rule": "first 3 tests per task",
+  "backend": "claude-cli",
+  "model_alias": "haiku",
+  "sessions": {
+    "slot_machine": 10,
+    "attentive": 10,
+    "retry_budget": 10,
+    "hidden_best_of_n": 10,
+    "test_gated_reveal": 10,
+    "typed_holes_patch": 5,
+    "typed_holes_fixed": 5
+  },
+  "updated": "2026-11-23T23:32:51-0500"
+}

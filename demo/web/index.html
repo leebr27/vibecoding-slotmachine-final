@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vibecoding Slot Machine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="/app.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='1' y='1' width='14' height='14' rx='2' fill='%2318181b'/%3E%3Crect x='4' y='4' width='2' height='8' fill='%23fff'/%3E%3Crect x='7' y='4' width='2' height='8' fill='%23fff'/%3E%3Crect x='10' y='4' width='2' height='8' fill='%23eb6834'/%3E%3C/svg%3E">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-name">Slot Machine Lab</span>
+      <span class="brand-sep">/</span>
+      <span class="brand-sub">reward structure of AI coding agents</span>
+    </div>
+    <div class="topbar-right">
+      <span class="readout" id="totals"></span>
+      <div class="seg feedback-seg" role="group" aria-label="Test feedback" title="Which tests the programmer sees (F)">
+        <button data-feedback="complete" aria-pressed="true">All tests</button>
+        <button data-feedback="realistic" aria-pressed="false">Your 3 tests</button>
+      </div>
+      <span class="mode-pill" id="mode-pill"><i></i><span>connecting</span></span>
+      <button class="kbd-btn" id="open-palette" title="Switch task">
+        <span>Task</span><kbd>T</kbd>
+      </button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="rail-left" aria-label="Task index">
+      <div class="rail-head">
+        <span class="eyebrow">Task index</span>
+        <span class="eyebrow mono" id="task-count"></span>
+      </div>
+      <div class="legend-inline mono">
+        <span><i class="sw pass"></i>pass</span>
+        <span><i class="sw near_miss"></i>near-miss</span>
+        <span><i class="sw fail"></i>fail</span>
+      </div>
+      <nav id="task-list" class="task-list"></nav>
+      <p class="rail-foot mono">10 recorded blind pulls per task</p>
+    </aside>
+
+    <main class="main">
+      <section id="task-head" class="task-head"></section>
+      <nav id="tabs" class="tabs" role="tablist"></nav>
+      <section id="stage" class="stage" aria-live="polite"></section>
+    </main>
+
+    <aside class="rail-right" aria-label="Variance meter">
+      <div id="meter" class="meter"></div>
+      <div id="keys" class="keys"></div>
+    </aside>
+  </div>
+
+  <div id="palette" class="palette-backdrop" hidden>
+    <div class="palette glass" role="dialog" aria-label="Switch task">
+      <input id="palette-input" class="palette-input mono" placeholder="Search tasks..." autocomplete="off" spellcheck="false">
+      <div id="palette-list" class="palette-list"></div>
+    </div>
+  </div>
+
+  <div id="flash" class="flash" hidden></div>
+  <div id="tooltip" class="tooltip glass mono" hidden></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

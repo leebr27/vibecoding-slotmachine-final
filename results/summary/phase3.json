@@ -1,0 +1,677 @@
+{
+  "meta": {
+    "k_star": 3,
+    "p1_k": 1,
+    "n_visible": 3,
+    "visible_rule": "first 3 tests per task",
+    "backend": "claude-cli",
+    "model_alias": "haiku",
+    "sessions": {
+      "slot_machine": 10,
+      "attentive": 10,
+      "retry_budget": 10,
+      "hidden_best_of_n": 10,
+      "test_gated_reveal": 10,
+      "typed_holes_patch": 5,
+      "typed_holes_fixed": 5
+    },
+    "updated": "2026-11-23T23:32:51-0500"
+  },
+  "contested_tasks": [
+    "he_file_name_check",
+    "he_fix_spaces",
+    "he_make_palindrome",
+    "he_order_by_points",
+    "mbpp_column_stats",
+    "mbpp_parse_kv",
+    "mbpp_roman",
+    "mbpp_top_k_words",
+    "orig_mini_interpreter",
+    "orig_parser_combinators",
+    "orig_vending_machine",
+    "orig_wrap_text"
+  ],
+  "variants": {
+    "slot_machine": {
+      "n_sessions": 300,
+      "n_tasks": 30,
+      "final_pass_rate": 0.7833333333333333,
+      "final_pass_ci": [
+        0.7332891734257104,
+        0.826212882908906
+      ],
+      "final_pass_boot_ci": [
+        0.6466666666666666,
+        0.9
+      ],
+      "model_only_pass_rate": 0.7833333333333333,
+      "visible_events_per_session": 1.0333333333333334,
+      "pulls_per_session": 1.0333333333333334,
+      "visible_entropy_bits": 0.07244269423795212,
+      "session_outcome_entropy_bits": 0.20696498222746973,
+      "visible_near_misses_per_session": 0.013333333333333334,
+      "visible_near_miss_share": 0.012903225806451613,
+      "passive_retries_per_session": 0.03333333333333333,
+      "decision_points_per_session": 0,
+      "review_items_per_session": 0,
+      "human_line_frac": 0.0,
+      "sessions_with_human_work": 0,
+      "human_line_frac_when_engaged": null,
+      "n_handoffs": 0,
+      "handoff_rescue_rate": null,
+      "invariants_total": 0,
+      "invariants_valid_ref": 0,
+      "spec_soundness": null,
+      "invariants_hold_final": 0,
+      "hole_compliance": null,
+      "holes_per_scaffold": null,
+      "hint_code_free_rate": null,
+      "n_hints": 0,
+      "agent_calls_per_session": 1.0333333333333334,
+      "agent_tokens_per_session": 2211.6966666666667,
+      "agent_output_tokens_per_session": 1083.12,
+      "agent_cost_usd_per_session": 0.0009118936,
+      "agent_latency_s_mean": 5.719883333333334,
+      "agent_latency_s_median": 4.9595,
+      "proxy_calls_per_session": 0,
+      "by_suite_pass": {
+        "humaneval": 0.89,
+        "mbpp": 0.68,
+        "original": 0.78
+      },
+      "intent_pass_rate": 0.7833333333333333,
+      "intent_pass_ci": [
+        0.7332891734257104,
+        0.826212882908906
+      ],
+      "intent_pass_boot_ci": [
+        0.6466666666666667,
+        0.9
+      ],
+      "visible_pass_rate": 1.0,
+      "silent_failure_rate": 0.21666666666666667,
+      "silent_given_visible_pass": 0.21666666666666667,
+      "human_turns_per_session": 0.03333333333333333,
+      "shown_lines_per_session": 34.63,
+      "clarifications_per_session": 0,
+      "contested_n_tasks": 12,
+      "contested_intent_pass_rate": 0.4583333333333333,
+      "contested_silent_failure_rate": 0.5416666666666666,
+      "diagnoses_reviewed": 0,
+      "diagnoses_accepted_rate": null,
+      "n_hole_requests": 0,
+      "hole_request_pass_rate": null,
+      "delta_intent_vs_vibecoder": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 30
+      },
+      "delta_silent_vs_vibecoder": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 30
+      },
+      "contested_delta_intent": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 12
+      },
+      "token_ratio_vs_vibecoder": 1.0
+    },
+    "attentive": {
+      "n_sessions": 300,
+      "n_tasks": 30,
+      "final_pass_rate": 1.0,
+      "final_pass_ci": [
+        0.9873565700022643,
+        0.9999999999999999
+      ],
+      "final_pass_boot_ci": [
+        1,
+        1
+      ],
+      "model_only_pass_rate": 0,
+      "visible_events_per_session": 1.5566666666666666,
+      "pulls_per_session": 1.5566666666666666,
+      "visible_entropy_bits": 0.06976143114121068,
+      "session_outcome_entropy_bits": 0.0,
+      "visible_near_misses_per_session": 0.013333333333333334,
+      "visible_near_miss_share": 0.008565310492505354,
+      "passive_retries_per_session": 0,
+      "decision_points_per_session": 0.5566666666666666,
+      "review_items_per_session": 1.5566666666666666,
+      "human_line_frac": 0.0,
+      "sessions_with_human_work": 117,
+      "human_line_frac_when_engaged": 0.0,
+      "n_handoffs": 0,
+      "handoff_rescue_rate": null,
+      "invariants_total": 0,
+      "invariants_valid_ref": 0,
+      "spec_soundness": null,
+      "invariants_hold_final": 0,
+      "hole_compliance": null,
+      "holes_per_scaffold": null,
+      "hint_code_free_rate": null,
+      "n_hints": 0,
+      "agent_calls_per_session": 1.5566666666666666,
+      "agent_tokens_per_session": 3693.6833333333334,
+      "agent_output_tokens_per_session": 1537.85,
+      "agent_cost_usd_per_session": 0.001466084,
+      "agent_latency_s_mean": 8.00144,
+      "agent_latency_s_median": 6.724,
+      "proxy_calls_per_session": 1.5566666666666666,
+      "by_suite_pass": {
+        "humaneval": 1,
+        "mbpp": 1,
+        "original": 1
+      },
+      "intent_pass_rate": 1.0,
+      "intent_pass_ci": [
+        0.9873565700022643,
+        0.9999999999999999
+      ],
+      "intent_pass_boot_ci": [
+        1,
+        1
+      ],
+      "visible_pass_rate": 1.0,
+      "silent_failure_rate": 0,
+      "silent_given_visible_pass": 0,
+      "human_turns_per_session": 1.5566666666666666,
+      "shown_lines_per_session": 56.91,
+      "clarifications_per_session": 0.5566666666666666,
+      "contested_n_tasks": 12,
+      "contested_intent_pass_rate": 1,
+      "contested_silent_failure_rate": 0,
+      "diagnoses_reviewed": 0,
+      "diagnoses_accepted_rate": null,
+      "n_hole_requests": 0,
+      "hole_request_pass_rate": null,
+      "delta_intent_vs_vibecoder": {
+        "delta": 0.21666666666666667,
+        "lo": 0.09999999999999999,
+        "hi": 0.35333333333333333,
+        "n_tasks": 30
+      },
+      "delta_silent_vs_vibecoder": {
+        "delta": -0.21666666666666667,
+        "lo": -0.35333333333333333,
+        "hi": -0.1,
+        "n_tasks": 30
+      },
+      "contested_delta_intent": {
+        "delta": 0.5416666666666666,
+        "lo": 0.3416666666666667,
+        "hi": 0.7416666666666667,
+        "n_tasks": 12
+      },
+      "token_ratio_vs_vibecoder": 1.670067776021124
+    },
+    "retry_budget": {
+      "n_sessions": 300,
+      "n_tasks": 30,
+      "final_pass_rate": 0.79,
+      "final_pass_ci": [
+        0.7403879054849664,
+        0.832278905116347
+      ],
+      "final_pass_boot_ci": [
+        0.66,
+        0.9033333333333333
+      ],
+      "model_only_pass_rate": 0.77,
+      "visible_events_per_session": 1.0,
+      "pulls_per_session": 1,
+      "visible_entropy_bits": 0.07737456957582142,
+      "session_outcome_entropy_bits": 0.23102925205704847,
+      "visible_near_misses_per_session": 0.013333333333333334,
+      "visible_near_miss_share": 0.013333333333333334,
+      "passive_retries_per_session": 0,
+      "decision_points_per_session": 0.05333333333333334,
+      "review_items_per_session": 0,
+      "human_line_frac": 0.008524826978652913,
+      "sessions_with_human_work": 10,
+      "human_line_frac_when_engaged": 0.2557448093595874,
+      "n_handoffs": 10,
+      "handoff_rescue_rate": 0.6,
+      "invariants_total": 68,
+      "invariants_valid_ref": 65,
+      "spec_soundness": 0.9558823529411765,
+      "invariants_hold_final": 67,
+      "hole_compliance": 1,
+      "holes_per_scaffold": 1.6,
+      "hint_code_free_rate": null,
+      "n_hints": 0,
+      "agent_calls_per_session": 1.0333333333333334,
+      "agent_tokens_per_session": 2277.92,
+      "agent_output_tokens_per_session": 1139.7066666666667,
+      "agent_cost_usd_per_session": 0.0009407718666666667,
+      "agent_latency_s_mean": 5.981463333333333,
+      "agent_latency_s_median": 5.108499999999999,
+      "proxy_calls_per_session": 0.03333333333333333,
+      "by_suite_pass": {
+        "humaneval": 0.89,
+        "mbpp": 0.7,
+        "original": 0.78
+      },
+      "intent_pass_rate": 0.79,
+      "intent_pass_ci": [
+        0.7403879054849664,
+        0.832278905116347
+      ],
+      "intent_pass_boot_ci": [
+        0.66,
+        0.9033333333333333
+      ],
+      "visible_pass_rate": 1.0,
+      "silent_failure_rate": 0.21,
+      "silent_given_visible_pass": 0.21,
+      "human_turns_per_session": 0.06666666666666667,
+      "shown_lines_per_session": 35.42,
+      "clarifications_per_session": 0,
+      "contested_n_tasks": 12,
+      "contested_intent_pass_rate": 0.475,
+      "contested_silent_failure_rate": 0.525,
+      "diagnoses_reviewed": 0,
+      "diagnoses_accepted_rate": null,
+      "n_hole_requests": 0,
+      "hole_request_pass_rate": null,
+      "delta_intent_vs_vibecoder": {
+        "delta": 0.006666666666666667,
+        "lo": 0.0,
+        "hi": 0.02,
+        "n_tasks": 30
+      },
+      "delta_silent_vs_vibecoder": {
+        "delta": -0.006666666666666665,
+        "lo": -0.019999999999999997,
+        "hi": 0.0,
+        "n_tasks": 30
+      },
+      "contested_delta_intent": {
+        "delta": 0.016666666666666666,
+        "lo": 0.0,
+        "hi": 0.05,
+        "n_tasks": 12
+      },
+      "token_ratio_vs_vibecoder": 1.02994232180724
+    },
+    "hidden_best_of_n": {
+      "n_sessions": 300,
+      "n_tasks": 30,
+      "final_pass_rate": 0.7833333333333333,
+      "final_pass_ci": [
+        0.7332891734257104,
+        0.826212882908906
+      ],
+      "final_pass_boot_ci": [
+        0.6466666666666666,
+        0.9
+      ],
+      "model_only_pass_rate": 0.7833333333333333,
+      "visible_events_per_session": 1.0066666666666666,
+      "pulls_per_session": 1.0066666666666666,
+      "visible_entropy_bits": 0.021667414054945138,
+      "session_outcome_entropy_bits": 0.20696498222746973,
+      "visible_near_misses_per_session": 0,
+      "visible_near_miss_share": 0.0,
+      "passive_retries_per_session": 0.006666666666666667,
+      "decision_points_per_session": 0,
+      "review_items_per_session": 0.1,
+      "human_line_frac": 0.0,
+      "sessions_with_human_work": 0,
+      "human_line_frac_when_engaged": null,
+      "n_handoffs": 0,
+      "handoff_rescue_rate": null,
+      "invariants_total": 0,
+      "invariants_valid_ref": 0,
+      "spec_soundness": null,
+      "invariants_hold_final": 0,
+      "hole_compliance": null,
+      "holes_per_scaffold": null,
+      "hint_code_free_rate": null,
+      "n_hints": 0,
+      "agent_calls_per_session": 5.033333333333333,
+      "agent_tokens_per_session": 10755.026666666667,
+      "agent_output_tokens_per_session": 5303.443333333334,
+      "agent_cost_usd_per_session": 0.0044261286,
+      "agent_latency_s_mean": 6.82431,
+      "agent_latency_s_median": 6.3315,
+      "proxy_calls_per_session": 0,
+      "by_suite_pass": {
+        "humaneval": 0.89,
+        "mbpp": 0.68,
+        "original": 0.78
+      },
+      "intent_pass_rate": 0.7833333333333333,
+      "intent_pass_ci": [
+        0.7332891734257104,
+        0.826212882908906
+      ],
+      "intent_pass_boot_ci": [
+        0.6466666666666667,
+        0.9
+      ],
+      "visible_pass_rate": 1.0,
+      "silent_failure_rate": 0.21666666666666667,
+      "silent_given_visible_pass": 0.21666666666666667,
+      "human_turns_per_session": 0.006666666666666667,
+      "shown_lines_per_session": 36.45666666666666,
+      "clarifications_per_session": 0,
+      "contested_n_tasks": 12,
+      "contested_intent_pass_rate": 0.4583333333333333,
+      "contested_silent_failure_rate": 0.5416666666666666,
+      "diagnoses_reviewed": 0,
+      "diagnoses_accepted_rate": null,
+      "n_hole_requests": 0,
+      "hole_request_pass_rate": null,
+      "delta_intent_vs_vibecoder": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 30
+      },
+      "delta_silent_vs_vibecoder": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 30
+      },
+      "contested_delta_intent": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 12
+      },
+      "token_ratio_vs_vibecoder": 4.862794626749599
+    },
+    "test_gated_reveal": {
+      "n_sessions": 300,
+      "n_tasks": 30,
+      "final_pass_rate": 0.7833333333333333,
+      "final_pass_ci": [
+        0.7332891734257104,
+        0.826212882908906
+      ],
+      "final_pass_boot_ci": [
+        0.6466666666666666,
+        0.9
+      ],
+      "model_only_pass_rate": 0.7833333333333333,
+      "visible_events_per_session": 1.0366666666666666,
+      "pulls_per_session": 0,
+      "visible_entropy_bits": 0.07523505194710364,
+      "session_outcome_entropy_bits": 0.20696498222746973,
+      "visible_near_misses_per_session": 0,
+      "visible_near_miss_share": 0.0,
+      "passive_retries_per_session": 0,
+      "decision_points_per_session": 0.03666666666666667,
+      "review_items_per_session": 0.03666666666666667,
+      "human_line_frac": 0.0,
+      "sessions_with_human_work": 10,
+      "human_line_frac_when_engaged": 0.0,
+      "n_handoffs": 0,
+      "handoff_rescue_rate": null,
+      "invariants_total": 0,
+      "invariants_valid_ref": 0,
+      "spec_soundness": null,
+      "invariants_hold_final": 0,
+      "hole_compliance": null,
+      "holes_per_scaffold": null,
+      "hint_code_free_rate": 0.8181818181818182,
+      "n_hints": 11,
+      "agent_calls_per_session": 1.0733333333333333,
+      "agent_tokens_per_session": 2276.8133333333335,
+      "agent_output_tokens_per_session": 1099.46,
+      "agent_cost_usd_per_session": 0.000935441,
+      "agent_latency_s_mean": 5.927783333333333,
+      "agent_latency_s_median": 5.0595,
+      "proxy_calls_per_session": 0.03666666666666667,
+      "by_suite_pass": {
+        "humaneval": 0.89,
+        "mbpp": 0.68,
+        "original": 0.78
+      },
+      "intent_pass_rate": 0.7833333333333333,
+      "intent_pass_ci": [
+        0.7332891734257104,
+        0.826212882908906
+      ],
+      "intent_pass_boot_ci": [
+        0.6466666666666667,
+        0.9
+      ],
+      "visible_pass_rate": 1.0,
+      "silent_failure_rate": 0.21666666666666667,
+      "silent_given_visible_pass": 0.21666666666666667,
+      "human_turns_per_session": 0.03666666666666667,
+      "shown_lines_per_session": 34.193333333333335,
+      "clarifications_per_session": 0.03666666666666667,
+      "contested_n_tasks": 12,
+      "contested_intent_pass_rate": 0.4583333333333333,
+      "contested_silent_failure_rate": 0.5416666666666666,
+      "diagnoses_reviewed": 11,
+      "diagnoses_accepted_rate": 1,
+      "n_hole_requests": 0,
+      "hole_request_pass_rate": null,
+      "delta_intent_vs_vibecoder": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 30
+      },
+      "delta_silent_vs_vibecoder": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 30
+      },
+      "contested_delta_intent": {
+        "delta": 0.0,
+        "lo": 0.0,
+        "hi": 0.0,
+        "n_tasks": 12
+      },
+      "token_ratio_vs_vibecoder": 1.029441951804723
+    },
+    "typed_holes_patch": {
+      "n_sessions": 150,
+      "n_tasks": 30,
+      "final_pass_rate": 0.8733333333333333,
+      "final_pass_ci": [
+        0.8106321928453123,
+        0.9173893565925509
+      ],
+      "final_pass_boot_ci": [
+        0.7733333333333333,
+        0.9533333333333334
+      ],
+      "model_only_pass_rate": 0,
+      "visible_events_per_session": 0.0,
+      "pulls_per_session": 0,
+      "visible_entropy_bits": 0.0,
+      "session_outcome_entropy_bits": 0.1767506387926281,
+      "visible_near_misses_per_session": 0,
+      "visible_near_miss_share": 0.0,
+      "passive_retries_per_session": 0,
+      "decision_points_per_session": 2.1866666666666665,
+      "review_items_per_session": 0,
+      "human_line_frac": 0.29604495212380416,
+      "sessions_with_human_work": 150,
+      "human_line_frac_when_engaged": 0.29604495212380416,
+      "n_handoffs": 0,
+      "handoff_rescue_rate": null,
+      "invariants_total": 1133,
+      "invariants_valid_ref": 1037,
+      "spec_soundness": 0.9152691968225949,
+      "invariants_hold_final": 1062,
+      "hole_compliance": 1,
+      "holes_per_scaffold": 2.1866666666666665,
+      "hint_code_free_rate": null,
+      "n_hints": 0,
+      "agent_calls_per_session": 1,
+      "agent_tokens_per_session": 4756.513333333333,
+      "agent_output_tokens_per_session": 3440.0266666666666,
+      "agent_cost_usd_per_session": 0.0020596172666666667,
+      "agent_latency_s_mean": 14.91268,
+      "agent_latency_s_median": 13.2365,
+      "proxy_calls_per_session": 1.0333333333333334,
+      "by_suite_pass": {
+        "humaneval": 0.98,
+        "mbpp": 0.88,
+        "original": 0.76
+      },
+      "intent_pass_rate": 0.8733333333333333,
+      "intent_pass_ci": [
+        0.8106321928453123,
+        0.9173893565925509
+      ],
+      "intent_pass_boot_ci": [
+        0.7733333333333333,
+        0.9533333333333334
+      ],
+      "visible_pass_rate": 0.9933333333333333,
+      "silent_failure_rate": 0.12,
+      "silent_given_visible_pass": 0.12080536912751678,
+      "human_turns_per_session": 1.0333333333333334,
+      "shown_lines_per_session": 63.6,
+      "clarifications_per_session": 0,
+      "contested_n_tasks": 12,
+      "contested_intent_pass_rate": 0.8,
+      "contested_silent_failure_rate": 0.18333333333333332,
+      "diagnoses_reviewed": 0,
+      "diagnoses_accepted_rate": null,
+      "n_hole_requests": 0,
+      "hole_request_pass_rate": null,
+      "delta_intent_vs_vibecoder": {
+        "delta": 0.09,
+        "lo": -0.03000000000000001,
+        "hi": 0.22333333333333333,
+        "n_tasks": 30
+      },
+      "delta_silent_vs_vibecoder": {
+        "delta": -0.09666666666666666,
+        "lo": -0.23,
+        "hi": 0.02333333333333334,
+        "n_tasks": 30
+      },
+      "contested_delta_intent": {
+        "delta": 0.3416666666666667,
+        "lo": 0.12499999999999999,
+        "hi": 0.575,
+        "n_tasks": 12
+      },
+      "token_ratio_vs_vibecoder": 2.1506173993118405
+    },
+    "typed_holes_fixed": {
+      "n_sessions": 150,
+      "n_tasks": 30,
+      "final_pass_rate": 0.9466666666666667,
+      "final_pass_ci": [
+        0.8982949952532904,
+        0.9727307871098676
+      ],
+      "final_pass_boot_ci": [
+        0.9066666666666666,
+        0.98
+      ],
+      "model_only_pass_rate": 0,
+      "visible_events_per_session": 0.0,
+      "pulls_per_session": 0,
+      "visible_entropy_bits": 0.0,
+      "session_outcome_entropy_bits": 0.1767506387926281,
+      "visible_near_misses_per_session": 0,
+      "visible_near_miss_share": 0.0,
+      "passive_retries_per_session": 0,
+      "decision_points_per_session": 2.48,
+      "review_items_per_session": 0,
+      "human_line_frac": 0.2807781837684781,
+      "sessions_with_human_work": 150,
+      "human_line_frac_when_engaged": 0.2807781837684781,
+      "n_handoffs": 0,
+      "handoff_rescue_rate": null,
+      "invariants_total": 1139,
+      "invariants_valid_ref": 1039,
+      "spec_soundness": 0.9122036874451273,
+      "invariants_hold_final": 1070,
+      "hole_compliance": 1,
+      "holes_per_scaffold": 2.48,
+      "hint_code_free_rate": null,
+      "n_hints": 0,
+      "agent_calls_per_session": 1.1666666666666667,
+      "agent_tokens_per_session": 5887.866666666667,
+      "agent_output_tokens_per_session": 4091.02,
+      "agent_cost_usd_per_session": 0.0025376406,
+      "agent_latency_s_mean": 17.60818,
+      "agent_latency_s_median": 14.551,
+      "proxy_calls_per_session": 1.1866666666666668,
+      "by_suite_pass": {
+        "humaneval": 0.96,
+        "mbpp": 0.96,
+        "original": 0.92
+      },
+      "intent_pass_rate": 0.9466666666666667,
+      "intent_pass_ci": [
+        0.8982949952532904,
+        0.9727307871098676
+      ],
+      "intent_pass_boot_ci": [
+        0.9066666666666667,
+        0.98
+      ],
+      "visible_pass_rate": 0.9933333333333333,
+      "silent_failure_rate": 0.04666666666666667,
+      "silent_given_visible_pass": 0.04697986577181208,
+      "human_turns_per_session": 1.1866666666666668,
+      "shown_lines_per_session": 78.94666666666667,
+      "clarifications_per_session": 0,
+      "contested_n_tasks": 12,
+      "contested_intent_pass_rate": 0.95,
+      "contested_silent_failure_rate": 0.03333333333333333,
+      "diagnoses_reviewed": 0,
+      "diagnoses_accepted_rate": null,
+      "n_hole_requests": 25,
+      "hole_request_pass_rate": 0.88,
+      "delta_intent_vs_vibecoder": {
+        "delta": 0.16333333333333333,
+        "lo": 0.04666666666666667,
+        "hi": 0.2966666666666667,
+        "n_tasks": 30
+      },
+      "delta_silent_vs_vibecoder": {
+        "delta": -0.17,
+        "lo": -0.30666666666666664,
+        "hi": -0.05333333333333333,
+        "n_tasks": 30
+      },
+      "contested_delta_intent": {
+        "delta": 0.4916666666666667,
+        "lo": 0.29166666666666663,
+        "hi": 0.6833333333333333,
+        "n_tasks": 12
+      },
+      "token_ratio_vs_vibecoder": 2.6621492700174376
+    }
+  },
+  "order": [
+    "slot_machine",
+    "attentive",
+    "retry_budget",
+    "hidden_best_of_n",
+    "test_gated_reveal",
+    "typed_holes_patch",
+    "typed_holes_fixed"
+  ],
+  "labels": {
+    "slot_machine": "Vibecoder (paste errors)",
+    "attentive": "Attentive programmer",
+    "retry_budget": "P1 Retry budget (k=1)",
+    "hidden_best_of_n": "P2 Hidden best-of-5",
+    "test_gated_reveal": "P3 Test-gated reveal",
+    "typed_holes_patch": "P4 Typed holes",
+    "typed_holes_fixed": "P4 + hole requests"
+  }
+}

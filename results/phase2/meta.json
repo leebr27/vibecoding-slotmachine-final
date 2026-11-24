@@ -1,0 +1,14 @@
+{
+  "k_star": 3,
+  "style": "vibe",
+  "backend": "claude-cli",
+  "model_alias": "haiku",
+  "sessions": {
+    "slot_machine": 10,
+    "retry_budget": 10,
+    "hidden_best_of_n": 10,
+    "test_gated_reveal": 10,
+    "typed_holes_patch": 5
+  },
+  "updated": "2026-11-23T03:02:13-0500"
+}

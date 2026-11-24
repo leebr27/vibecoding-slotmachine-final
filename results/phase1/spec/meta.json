@@ -1,0 +1,20 @@
+{
+  "backend": "claude-cli",
+  "model_alias": "haiku",
+  "python": "3.14.0",
+  "platform": "macOS-27.0.1-arm64-arm-64bit-Mach-O",
+  "args": {
+    "backend": "auto",
+    "model": "haiku",
+    "trials": 10,
+    "chains": 10,
+    "max_turns": 5,
+    "workers": 6,
+    "tasks": "",
+    "out": "results",
+    "skip_error_paste": false,
+    "prompt_style": "spec"
+  },
+  "started": "2026-11-23T02:38:24-0500",
+  "claude_cli_version": "2.1.330 (Claude Code)"
+}

@@ -1,0 +1,519 @@
+{
+  "style": "vibe",
+  "n_tasks": 30,
+  "n_blind_attempts": 300,
+  "trials_per_task": [
+    10
+  ],
+  "outcome_counts": {
+    "pass": 231,
+    "near_miss": 58,
+    "fail": 11
+  },
+  "pass_rate": 0.77,
+  "pass_rate_ci": [
+    0.7191436245386645,
+    0.8140289232625583
+  ],
+  "p_nm_given_failure": 0.8405797101449275,
+  "p_nm_given_failure_ci": [
+    0.6458333333333334,
+    0.9824561403508771
+  ],
+  "mean_bernoulli_var": 0.05566666666666667,
+  "mean_entropy_bits": 0.23933000204262533,
+  "mean_entropy_3way_bits": 0.29454419843202545,
+  "n_tasks_always_pass": 18,
+  "n_tasks_never_pass": 3,
+  "n_tasks_stochastic": 9,
+  "n_tasks_with_near_miss": 11,
+  "mean_frac_tests_passed_in_failures": 0.8272144927536232,
+  "median_frac_tests_passed_in_failures": 0.9,
+  "by_suite": {
+    "humaneval": {
+      "pass_rate": 0.85,
+      "near_miss_rate": 0.11,
+      "p_nm_given_failure": 0.7333333333333333,
+      "mean_entropy_bits": 0.28838023778186744,
+      "n_stochastic": 4
+    },
+    "mbpp": {
+      "pass_rate": 0.68,
+      "near_miss_rate": 0.26,
+      "p_nm_given_failure": 0.8125,
+      "mean_entropy_bits": 0.07219280948873623,
+      "n_stochastic": 1
+    },
+    "original": {
+      "pass_rate": 0.78,
+      "near_miss_rate": 0.21,
+      "p_nm_given_failure": 0.9545454545454546,
+      "mean_entropy_bits": 0.35741695885727237,
+      "n_stochastic": 4
+    }
+  },
+  "per_task": {
+    "he_compare_one": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "humaneval"
+    },
+    "he_do_algebra": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "humaneval"
+    },
+    "he_file_name_check": {
+      "n": 10,
+      "passes": 8,
+      "near_misses": 2,
+      "fails": 0,
+      "p_pass": 0.8,
+      "bernoulli_var": 0.15999999999999998,
+      "entropy_pass": 0.7219280948873623,
+      "entropy_3way": 0.7219280948873623,
+      "p_nm_given_failure": 1.0,
+      "suite": "humaneval"
+    },
+    "he_fix_spaces": {
+      "n": 10,
+      "passes": 2,
+      "near_misses": 8,
+      "fails": 0,
+      "p_pass": 0.2,
+      "bernoulli_var": 0.16000000000000003,
+      "entropy_pass": 0.7219280948873623,
+      "entropy_3way": 0.7219280948873623,
+      "p_nm_given_failure": 1.0,
+      "suite": "humaneval"
+    },
+    "he_is_nested": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "humaneval"
+    },
+    "he_make_palindrome": {
+      "n": 10,
+      "passes": 6,
+      "near_misses": 1,
+      "fails": 3,
+      "p_pass": 0.6,
+      "bernoulli_var": 0.24,
+      "entropy_pass": 0.9709505944546686,
+      "entropy_3way": 1.295461844238322,
+      "p_nm_given_failure": 0.25,
+      "suite": "humaneval"
+    },
+    "he_minpath": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "humaneval"
+    },
+    "he_numerical_letter_grade": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "humaneval"
+    },
+    "he_order_by_points": {
+      "n": 10,
+      "passes": 9,
+      "near_misses": 0,
+      "fails": 1,
+      "p_pass": 0.9,
+      "bernoulli_var": 0.08999999999999998,
+      "entropy_pass": 0.4689955935892811,
+      "entropy_3way": 0.4689955935892812,
+      "p_nm_given_failure": 0.0,
+      "suite": "humaneval"
+    },
+    "he_tri": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "humaneval"
+    },
+    "mbpp_column_stats": {
+      "n": 10,
+      "passes": 0,
+      "near_misses": 10,
+      "fails": 0,
+      "p_pass": 0.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": 1.0,
+      "suite": "mbpp"
+    },
+    "mbpp_flatten": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "mbpp"
+    },
+    "mbpp_merge_intervals": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "mbpp"
+    },
+    "mbpp_normalize_phone": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "mbpp"
+    },
+    "mbpp_parse_kv": {
+      "n": 10,
+      "passes": 0,
+      "near_misses": 10,
+      "fails": 0,
+      "p_pass": 0.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": 1.0,
+      "suite": "mbpp"
+    },
+    "mbpp_remove_occ": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "mbpp"
+    },
+    "mbpp_rle": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "mbpp"
+    },
+    "mbpp_roman": {
+      "n": 10,
+      "passes": 8,
+      "near_misses": 2,
+      "fails": 0,
+      "p_pass": 0.8,
+      "bernoulli_var": 0.15999999999999998,
+      "entropy_pass": 0.7219280948873623,
+      "entropy_3way": 0.7219280948873623,
+      "p_nm_given_failure": 1.0,
+      "suite": "mbpp"
+    },
+    "mbpp_sort_matrix": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "mbpp"
+    },
+    "mbpp_top_k_words": {
+      "n": 10,
+      "passes": 0,
+      "near_misses": 4,
+      "fails": 6,
+      "p_pass": 0.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": 0.9709505944546686,
+      "p_nm_given_failure": 0.4,
+      "suite": "mbpp"
+    },
+    "orig_graph_coloring": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "original"
+    },
+    "orig_interval_scheduler": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "original"
+    },
+    "orig_mini_interpreter": {
+      "n": 10,
+      "passes": 7,
+      "near_misses": 3,
+      "fails": 0,
+      "p_pass": 0.7,
+      "bernoulli_var": 0.21000000000000002,
+      "entropy_pass": 0.8812908992306927,
+      "entropy_3way": 0.8812908992306927,
+      "p_nm_given_failure": 1.0,
+      "suite": "original"
+    },
+    "orig_parser_combinators": {
+      "n": 10,
+      "passes": 5,
+      "near_misses": 4,
+      "fails": 1,
+      "p_pass": 0.5,
+      "bernoulli_var": 0.25,
+      "entropy_pass": 1.0,
+      "entropy_3way": 1.360964047443681,
+      "p_nm_given_failure": 0.8,
+      "suite": "original"
+    },
+    "orig_semver": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "original"
+    },
+    "orig_topo_order": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "original"
+    },
+    "orig_ttl_cache": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "original"
+    },
+    "orig_undo_editor": {
+      "n": 10,
+      "passes": 10,
+      "near_misses": 0,
+      "fails": 0,
+      "p_pass": 1.0,
+      "bernoulli_var": 0.0,
+      "entropy_pass": 0.0,
+      "entropy_3way": -0.0,
+      "p_nm_given_failure": null,
+      "suite": "original"
+    },
+    "orig_vending_machine": {
+      "n": 10,
+      "passes": 2,
+      "near_misses": 8,
+      "fails": 0,
+      "p_pass": 0.2,
+      "bernoulli_var": 0.16000000000000003,
+      "entropy_pass": 0.7219280948873623,
+      "entropy_3way": 0.7219280948873623,
+      "p_nm_given_failure": 1.0,
+      "suite": "original"
+    },
+    "orig_wrap_text": {
+      "n": 10,
+      "passes": 4,
+      "near_misses": 6,
+      "fails": 0,
+      "p_pass": 0.4,
+      "bernoulli_var": 0.24,
+      "entropy_pass": 0.9709505944546686,
+      "entropy_3way": 0.9709505944546686,
+      "p_nm_given_failure": 1.0,
+      "suite": "original"
+    }
+  },
+  "mean_distinct_behaviours_per_task": 1.4333333333333333,
+  "mean_pairwise_code_similarity_blind": 0.5039583804651158,
+  "blind_curve": {
+    "hazard": [
+      0.77,
+      0.24202898550724636,
+      0.1447418738049713,
+      0.09494746255309637,
+      0.06684534248944002
+    ],
+    "cumulative": [
+      0.77,
+      0.8256666666666667,
+      0.8509,
+      0.8650566666666667,
+      0.874077
+    ],
+    "reach": [
+      1.0,
+      0.23,
+      0.17433333333333334,
+      0.14909999999999998,
+      0.13494333333333333
+    ],
+    "hazard_ci_lo": [
+      0.6333333333333333,
+      0.11238938053097344,
+      0.05518565941101153,
+      0.026709754997745378,
+      0.014008149959250205
+    ],
+    "hazard_ci_hi": [
+      0.8866666666666667,
+      0.43469387755102035,
+      0.3305295950155763,
+      0.2753846153846154,
+      0.24707885774168198
+    ]
+  },
+  "error_paste_curve": {
+    "hazard": [
+      0.77,
+      0.9130434782608695,
+      1.0,
+      NaN,
+      NaN
+    ],
+    "cumulative": [
+      0.77,
+      0.98,
+      1.0,
+      1.0,
+      1.0
+    ],
+    "reached": [
+      300,
+      69,
+      6,
+      0,
+      0
+    ],
+    "passed": [
+      231,
+      63,
+      6,
+      0,
+      0
+    ],
+    "n_chains": 300,
+    "hazard_ci_lo": [
+      0.6333333333333333,
+      0.7777777777777778,
+      1.0,
+      NaN,
+      NaN
+    ],
+    "hazard_ci_hi": [
+      0.8866666666666667,
+      0.984375,
+      1.0,
+      NaN,
+      NaN
+    ]
+  },
+  "error_paste_transitions": {
+    "p_pass_after_near_miss": 0.9365079365079365,
+    "n_after_near_miss": 63,
+    "p_pass_after_fail": 0.8333333333333334,
+    "n_after_fail": 12,
+    "regression_rate": 0.0,
+    "n_steps": 75,
+    "mean_consecutive_similarity": 0.8270880384314108
+  },
+  "error_paste_sessions": {
+    "n": 300,
+    "mean_turns": 1.25,
+    "final_pass_rate": 1.0,
+    "n_exhausted": 0,
+    "visible_near_misses_per_session": 0.21,
+    "visible_near_misses_per_session_given_any_failure": 0.9130434782608695
+  },
+  "k_star": 3
+}
